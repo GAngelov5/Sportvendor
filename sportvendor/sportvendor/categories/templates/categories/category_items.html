@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="list-group">
+    {% for item in items%}
+        <a href="{% url 'item_view' item_pk=item.id %}" class="list-group-item active"> {{ item }}</a>
+    {% endfor %}
+</div>
+{% endblock content %}

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<legend>My Profile</legend>
+<div class="jumbotron-login">
+    <form role="role" class="form-horizontal" method="POST" action="{% url 'profile'%}">
+        {% csrf_token %}
+        {{ form.as_p}}
+        <input class="btn btn-primary" type="submit" value="Edit"/>
+        <a href="/"><button class="btn btn-primary">Back</button></a>
+    </form>
+    <a href="{% url 'change_pass' %}"><button class="btn btn-primary">Change Password</button></a>
+
+    <a href="{% url 'item_history' %}"><button class="btn btn-primary">Item History</button></a>
+</div>
+
+{% endblock content%}

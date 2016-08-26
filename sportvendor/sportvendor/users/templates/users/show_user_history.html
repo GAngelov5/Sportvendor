@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="list-group">
+    {% if items %}
+        {% for item in items%}
+        <span> {{ item }}</a>
+    {% endfor %}
+    {% else %}
+        <span>No items available. Go buy something</span>
+    {% endif%}
+</div>
+{% endblock content %}

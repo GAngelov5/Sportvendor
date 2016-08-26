@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="list-group">
+    {% for item in searching_results %}
+        <a href="{% url 'item_view' item_pk=item.id %}" class="list-group-item active"> {{ item }}</a>
+    {% endfor %}
+</div>
+
+<a href="/search"><button class="btn btn-primary">Clear</button></a>
+
+{% endblock content %}
+

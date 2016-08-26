@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block content %}
+
+ <form role="role" class="form-horizontal" action="{% url 'process_provider'%}" method="POST">
+    {% csrf_token %}
+    {{ form.as_p}}
+    <input class="btn btn-primary" type="submit" value="Submit"/>
+</form>
+
+{% if successful_purchase %}
+    <a href="{% url 'payment_provider' %}"><button>Purchase</button></a>
+{% endif %}
+
+{% endblock content %}

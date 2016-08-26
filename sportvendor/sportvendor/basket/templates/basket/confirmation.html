@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div>
+    <h3>You are about to purchase {{ item_count }} items from our store! </h3>
+    <legend>Total price of the products: {{ total }} $</legend>
+    {% if give_discount %}
+        <span>You are about to make a purchase for more than 100$. You are able get a discount for the next order - {{ discount }}</span>
+
+    {% endif%}
+    <legend>Please confirm to proceed with payment provider!</legend>
+
+    <div style="display: inline-block; margin-bottom: 10px;">
+        <h4 style="display: inline-block;" >Get confirmation message by mail</h4>
+        <a href="{% url 'send_confirmation' %}" style="display: inline-block;"><button class="btn btn-primary">Send mail</button></a>
+    </div>
+
+    <br>
+    <form class="navbar-form navbar-left" role="search" method="GET" action="{% url 'send_confirmation' %}">
+        <div class="form-group">
+            <span class="navbar-brand">Enter confirmation message </span>
+            <input type="text" class="form-control" placeholder="Confirmation" name="confirmation_input"
+            id="confirmation_input" style="margin-left: 10px;">
+        </div>
+        <input class="btn btn-default" type="submit" value="Confirm"/>
+    </form>
+
+</div>
+
+    <h4> {{ confirmation_msg }} </h4>
+
+{% if confirmation_successful %}
+    <a href="{% url 'payment_provider' %}"><button class="btn btn-primary">Proceed</button></a>
+{% endif %}
+
+{% endblock content %}

@@ -1,0 +1,61 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+            {% block title %}
+            {% endblock title %}
+
+            {% block styling %}
+                <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+            {% endblock styling %}
+
+            <a href="/"><button class="btn btn-primary">Home</button></a>
+    </head>
+    <body style="background-color: #394660">
+        <h2> {{ title }} </h2>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="/category">Category</a>
+                    <a class="navbar-brand" href="/brand">Brands</a>
+                </div>
+
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <form class="navbar-form navbar-left" role="search" method="GET" action="{% url 'search_view'%}">
+                        <div class="form-group">
+                            <span class="navbar-brand">Search by:</span>
+                            <select class="form-control" name="selected_option" id="selected_option">
+                                  <option>Name</option>
+                                  <option>Category</option>
+                                  <option>Brand</option>
+                                  <option>Price</option>
+                            </select>
+                            <input type="text" class="form-control" placeholder="Search" name="search_input"
+                            id="search_input" style="margin-left: 10px;">
+                        </div>
+                        <input class="btn btn-default" type="submit" value="Search"/>
+                    </form>
+                    <!-- Contacts/Login -->
+                    <ul class="nav navbar-nav navbar-right">
+                        {% block profile %}
+                        {% endblock profile%}
+
+                        <li><a class="navbar-brand" href="{% url 'basket_view' %}"> My basket </a></li>
+
+                        {% block login %}
+                        {% endblock login %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        {% block content %}
+        {% endblock content%}
+
+        {% block javascript%}
+            <script type="text/javascript" src="{% static 'jquery-2.2.3.js' %}"></script>
+            <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+        {% endblock javascript%}
+    </body>
+</html>

@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block content %}
+<div class="list-group">
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+        {{ name }}
+        </div>
+    </div>
+    {% if img_url %}
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <img src="{{ img_url.url }}" class="img-responsive"/>
+        </div>
+    </div>
+    {% endif %}
+    <div class="panel panel-default">
+        <div class="panel-body">
+        Added on: {{ added_on }}
+        </div>
+    </div>
+    <div class="panel-heading">Information: </div>
+    <div class="panel panel-default">
+        <div class="panel-body">
+        {{ info }}
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-body">
+        Sizes: {{ size }}
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-body">
+        Quality: {{ quality }}
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-body">
+        Price: {{ price }}
+        </div>
+    </div>
+
+</div>
+
+<a href="/item/{{item_id}}/add_to_cart/"><button class="btn btn-primary">Add to cart</button></a>
+
+{% endblock content %}
+
