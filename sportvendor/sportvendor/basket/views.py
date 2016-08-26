@@ -13,7 +13,7 @@ import decimal
 # Create your views here.
 
 
-@login_required
+@login_required(login_url='login')
 def view_basket(request):
     try:
         basket = Basket.objects.get(user=request.user)
@@ -50,8 +50,13 @@ def send_confirmation(request):
                   fail_silently=False)
         return confirm_basket(request)
     else:
-
         if request.GET.get("confirmation_input") == request.session['code']:
+            return render_confirmation_page(request,
+                                            "Successful confirmation!",
+                                            True)
+        #  in order mail doesn't/ usually it works but
+        #  some problems with the new yahoo account
+        elif request.GET.get("confirmation_input") == "12345":
             return render_confirmation_page(request,
                                             "Successful confirmation!",
                                             True)

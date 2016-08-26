@@ -9,6 +9,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import update_session_auth_hash
+from django.core.exceptions import ObjectDoesNotExist
 
 # Create your views here.
 
@@ -55,7 +56,7 @@ def register_view(request):
     return render(request, "register.html", {'form': form})
 
 
-@login_required
+@login_required(login_url='login')
 def profile_view(request):
     if request.method == 'POST':
         form = UserProfile(request.POST, instance=request.user)
@@ -82,10 +83,15 @@ def update_view(request):
         form = PasswordChangeForm(user=request.user)
     return render(request, "change_password.html", {'form': form})
 
+
 @login_required
 def get_user_history(request):
-    current_user = request.user.customer
-    items = current_user.items_history.all()
+    items = []
+    try:
+        current_user = request.user.customer
+        items = current_user.items_history.all()
+    except ObjectDoesNotExist:
+        print("Catch fail")
     return render(request,
                   "show_user_history.html",
                   {"items": items})

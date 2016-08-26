@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 
-@login_required
+@login_required(login_url='login')
 def view_brands(request):
     brands = Brand.objects.all()
     return render(request,

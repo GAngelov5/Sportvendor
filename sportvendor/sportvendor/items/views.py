@@ -7,7 +7,7 @@ from basket.views import view_basket
 from django.contrib.auth.decorators import login_required
 
 
-@login_required
+@login_required(login_url='login')
 def view_item(request, item_pk):
     item = Item.objects.get_item(item_pk)
     return render(request,
@@ -45,7 +45,7 @@ def add_to_cart(request, item_pk):
                    "item_id": item.id})
 
 
-@login_required
+@login_required(login_url='login')
 def search_for_item(request):
     search_by = request.GET.get("selected_option").lower()
     #  print(request.GET.get("search_input"))
@@ -53,11 +53,21 @@ def search_for_item(request):
     if search_by == "name":
         items = Item.objects.filter(name=request.GET.get("search_input"))
     elif search_by == "category":
-        category = Category.objects.get(name=request.GET.get("search_input"))
-        items = Item.objects.filter(category=category.id)
+        category = Category.objects.none()
+        try:
+            category = Category.objects.get(name=request.GET.get("search_input"))
+        except Category.DoesNotExist:
+            print("Fail category search")
+        if category:
+            items = Item.objects.filter(category=category.id)
     elif search_by == "brand":
-        brand = Brand.objects.get(name=request.GET.get("search_input"))
-        items = Item.objects.filter(brand=brand.id)
+        brand = Brand.objects.none()
+        try:
+            brand = Brand.objects.get(name=request.GET.get("search_input"))
+        except Brand.DoesNotExist:
+            print('Fail brand search')
+        if brand:
+            items = Item.objects.filter(brand=brand.id)
     else:
         items = Item.objects.filter(price__gt=request.GET.get("search_input"))
     return render(request,

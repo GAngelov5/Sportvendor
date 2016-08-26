@@ -1,0 +1,8 @@
+Django==1.9.8
+-e git://github.com/agiliq/merchant.git@38b20af698b4653168161ad91c2279ab5516b9d5#egg=django_merchant
+django-paypal==0.3.2
+Pillow==3.3.0
+pytz==2016.6.1
+requests==2.11.0
+six==1.10.0
+
